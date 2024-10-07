@@ -52,5 +52,21 @@ namespace GUI
         {
             SelectButton(sender as Button);
         }
+
+        private void settings_button_MouseEnter(object sender, EventArgs e)
+        {
+            if (selectedButton != settings_button)
+            {
+                settings_button.BackColor = System.Drawing.ColorTranslator.FromHtml("#4b4c4f");
+            }
+        }
+
+        private void settings_button_MouseLeave(object sender, EventArgs e)
+        {
+            if (selectedButton != settings_button)
+            {
+                settings_button.BackColor = Color.Transparent;
+            }
+        }
     }
 }

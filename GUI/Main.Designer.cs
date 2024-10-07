@@ -63,6 +63,8 @@ namespace GUI
             options_panel_tooltip.SetToolTip(settings_button, "Display the settings");
             settings_button.UseVisualStyleBackColor = true;
             settings_button.Click += settings_button_Click;
+            settings_button.MouseEnter += settings_button_MouseEnter;
+            settings_button.MouseLeave += settings_button_MouseLeave;
             // 
             // imageList1
             // 
