@@ -1,6 +1,36 @@
-﻿
+﻿using System;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Windows.Forms;
+
 namespace GUI
 {
+    public class RoundedButton : Button
+    {
+        public RoundedButton()
+        {
+            this.Size = new Size(52, 52);
+            this.FlatStyle = FlatStyle.Flat;
+            this.FlatAppearance.BorderSize = 0;
+        }
+
+        protected override void OnPaint(PaintEventArgs pevent)
+        {
+            base.OnPaint(pevent);
+
+            GraphicsPath path = new GraphicsPath();
+            path.AddEllipse(0, 0, this.Width, this.Height);
+            this.Region = new Region(path);
+
+            using (Pen pen = new Pen(Color.Transparent, 0))
+            {
+                pen.Alignment = PenAlignment.Inset;
+                pevent.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+                pevent.Graphics.DrawEllipse(pen, 1, 1, this.Width - 2, this.Height - 2);
+            }
+        }
+    }
+
     partial class Main
     {
         /// <summary>
@@ -32,16 +62,18 @@ namespace GUI
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             panel1 = new Panel();
-            settings_button = new Button();
-            imageList1 = new ImageList(components);
-            redaction_options_button = new Button();
+            settings_button = new RoundedButton();
+            selector_panel_buttons = new ImageList(components);
+            redaction_options_button = new RoundedButton();
             options_panel_tooltip = new ToolTip(components);
+            report_button = new RoundedButton();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(43, 45, 48);
+            panel1.Controls.Add(report_button);
             panel1.Controls.Add(settings_button);
             panel1.Controls.Add(redaction_options_button);
             panel1.Dock = DockStyle.Left;
@@ -55,7 +87,7 @@ namespace GUI
             settings_button.FlatAppearance.BorderColor = Color.FromArgb(43, 45, 48);
             settings_button.FlatStyle = FlatStyle.Flat;
             settings_button.ImageIndex = 1;
-            settings_button.ImageList = imageList1;
+            settings_button.ImageList = selector_panel_buttons;
             settings_button.Location = new Point(12, 66);
             settings_button.Name = "settings_button";
             settings_button.Size = new Size(48, 48);
@@ -66,20 +98,21 @@ namespace GUI
             settings_button.MouseEnter += settings_button_MouseEnter;
             settings_button.MouseLeave += settings_button_MouseLeave;
             // 
-            // imageList1
+            // selector_panel_buttons
             // 
-            imageList1.ColorDepth = ColorDepth.Depth32Bit;
-            imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
-            imageList1.TransparentColor = Color.Transparent;
-            imageList1.Images.SetKeyName(0, "icons8-lock-48.png");
-            imageList1.Images.SetKeyName(1, "icons8-settings-48.png");
+            selector_panel_buttons.ColorDepth = ColorDepth.Depth32Bit;
+            selector_panel_buttons.ImageStream = (ImageListStreamer)resources.GetObject("selector_panel_buttons.ImageStream");
+            selector_panel_buttons.TransparentColor = Color.Transparent;
+            selector_panel_buttons.Images.SetKeyName(0, "icons8-lock-48.png");
+            selector_panel_buttons.Images.SetKeyName(1, "icons8-settings-48.png");
+            selector_panel_buttons.Images.SetKeyName(2, "icons8-report-48.png");
             // 
             // redaction_options_button
             // 
             redaction_options_button.FlatAppearance.BorderColor = Color.FromArgb(43, 45, 48);
             redaction_options_button.FlatStyle = FlatStyle.Flat;
             redaction_options_button.ImageIndex = 0;
-            redaction_options_button.ImageList = imageList1;
+            redaction_options_button.ImageList = selector_panel_buttons;
             redaction_options_button.Location = new Point(12, 12);
             redaction_options_button.Name = "redaction_options_button";
             redaction_options_button.Size = new Size(48, 48);
@@ -93,6 +126,18 @@ namespace GUI
             // options_panel_tooltip
             // 
             options_panel_tooltip.ToolTipTitle = "Options Panel";
+            // 
+            // report_button
+            // 
+            report_button.FlatStyle = FlatStyle.Flat;
+            report_button.ImageIndex = 2;
+            report_button.ImageList = selector_panel_buttons;
+            report_button.Location = new Point(12, 672);
+            report_button.Name = "report_button";
+            report_button.Size = new Size(48, 48);
+            report_button.TabIndex = 3;
+            options_panel_tooltip.SetToolTip(report_button, "Show reports page");
+            report_button.UseVisualStyleBackColor = true;
             // 
             // Main
             // 
@@ -120,9 +165,10 @@ namespace GUI
         #endregion
 
         private Panel panel1;
-        private ImageList imageList1;
+        private ImageList selector_panel_buttons;
         private Button redaction_options_button;
         private ToolTip options_panel_tooltip;
         private Button settings_button;
+        private Button report_button;
     }
 }

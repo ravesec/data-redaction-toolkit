@@ -23,7 +23,7 @@ namespace GUI
             if (selectedButton != null)
             {
                 // Change the color of the selected button
-                selectedButton.BackColor = System.Drawing.ColorTranslator.FromHtml("#3574f0");
+                selectedButton.BackColor = System.Drawing.ColorTranslator.FromHtml("#4b4c4f");
             }
         }
 
