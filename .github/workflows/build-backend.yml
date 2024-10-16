@@ -36,9 +36,8 @@ jobs:
       - name: Build with Maven
         run: cd Backend && mvn clean package
 
-      # Upload the JAR as a build artifact
-      - name: Upload JAR file
-        uses: actions/upload-artifact@v3
-        with:
-          name: Backend-JAR
-          path: Backend/target/Backend-1.0-SNAPSHOT.jar
+      # Publish to Github Packages
+      - name: Publish JAR to GitHub Packages
+        run: cd Backend && mvn deploy -s settings.xml
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
