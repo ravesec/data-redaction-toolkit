@@ -25,7 +25,7 @@ jobs:
 
       # Change directory to the Backend folder
       - name: Change to Backend Directory
-        run: cd Backend
+        run: cd Backend && pwd
 
       # Cache Maven dependencies to speed up builds
       - name: Cache Maven Dependencies
