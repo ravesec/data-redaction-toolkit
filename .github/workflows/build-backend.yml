@@ -23,6 +23,10 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+      # Change directory to the Backend folder
+      - name: Change to Backend Directory
+        run: cd Backend
+
       # Cache Maven dependencies to speed up builds
       - name: Cache Maven Dependencies
         uses: actions/cache@v3
