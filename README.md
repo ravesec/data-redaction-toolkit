@@ -19,6 +19,7 @@ The goal of this software is to allow any user to quickly and easily batch-redac
 | .pdf      |     ❌     |
 | .docx     |     ❌     |
 | .gif      |     ❌     |
+| .csv      |     ❌     |
 
 ## Getting Started
 *note*, no downloads currently available
