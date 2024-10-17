@@ -102,6 +102,9 @@ namespace GUI
             report_button.TabIndex = 3;
             options_panel_tooltip.SetToolTip(report_button, "Show reports page");
             report_button.UseVisualStyleBackColor = true;
+            report_button.Click += report_button_Click;
+            report_button.MouseEnter += report_button_MouseEnter;
+            report_button.MouseLeave += report_button_MouseLeave;
             // 
             // selector_panel_buttons
             // 

@@ -95,5 +95,26 @@ namespace GUI
                 fileListView.Items.Add(item);
             }
         }
+
+        private void report_button_Click(object sender, EventArgs e)
+        {
+            SelectButton(sender as Button);
+        }
+
+        private void report_button_MouseEnter(object sender, EventArgs e)
+        {
+            if (_selectedButton != settings_button)
+            {
+                settings_button.BackColor = System.Drawing.ColorTranslator.FromHtml("#4b4c4f");
+            }
+        }
+
+        private void report_button_MouseLeave(object sender, EventArgs e)
+        {
+            if (_selectedButton != settings_button)
+            {
+                settings_button.BackColor = Color.Transparent;
+            }
+        }
     }
 }
