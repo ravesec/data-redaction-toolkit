@@ -40,7 +40,7 @@ public enum RedactionLevel {
             String replacementCharacter = RedactionLevel.getReplacementCharacterFromCharset(charset);
 
             // Using split-based redaction
-            String[] paragraphs = content.split("\\n{2,}");
+            String[] paragraphs = content.split("\\r\\n");
 
             for (int i = 0; i < paragraphs.length; i++) {
                 for (String keyword : keywords) {
@@ -50,7 +50,7 @@ public enum RedactionLevel {
                     }
                 }
             }
-            return String.join("\n\n", paragraphs);
+            return String.join("\r\n", paragraphs);
         }
     };
 
