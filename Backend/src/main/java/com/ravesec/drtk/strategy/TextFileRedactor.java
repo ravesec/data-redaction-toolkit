@@ -29,9 +29,6 @@ public class TextFileRedactor implements RedactionStrategy {
                 StandardCharsets.UTF_16BE,
                 StandardCharsets.UTF_16,
                 StandardCharsets.UTF_16LE,
-                StandardCharsets.UTF_32,
-                StandardCharsets.UTF_32BE,
-                StandardCharsets.UTF_32LE
         };
 
         for (Charset charset : charsets) {
@@ -39,7 +36,7 @@ public class TextFileRedactor implements RedactionStrategy {
                 content = Files.readString(path, charset);
                 correctCharset = charset;
                 break;
-            } catch (MalformedInputException _) {
+            } catch (MalformedInputException ignored) {
                 ;
             }
         }
