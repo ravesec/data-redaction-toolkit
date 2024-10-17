@@ -41,7 +41,9 @@ public enum RedactionLevel {
 
             for (String keyword : keywords) {
                 // Use newlines as paragraph delimiters (modify based on the file format)
-                content = RedactionLevel.redactWithPattern(content, keyword, "(?i)([^\\n]*\\n)*?[^\\n]*" + Pattern.quote(keyword) + "[^\\n]*(\\n[^\\n]*)*", replacementCharacter);
+                //content = RedactionLevel.redactWithPattern(content, keyword, "(?i)([^\\n]*\\n)*?[^\\n]*" + Pattern.quote(keyword) + "[^\\n]*(\\n[^\\n]*)*", replacementCharacter); v0.6
+                content = RedactionLevel.redactWithPattern(content, keyword, "(?i)([^\\n]+\\n+)*?[^\\n]*" + Pattern.quote(keyword) + "[^\\n]*(\\n+[^\\n]*)*", replacementCharacter);
+
             }
             return content;
         }
