@@ -40,7 +40,20 @@ public enum RedactionLevel {
             String replacementCharacter = RedactionLevel.getReplacementCharacterFromCharset(charset);
 
             // Using split-based redaction
-            String[] paragraphs = content.split("\\r\\n");
+
+            // Identify the line-ending style based on the presence of carriage return characters
+            String[] paragraphs;
+            String newlineSeparator;
+
+            if (content.contains("\r")) {
+                // Windows style line endings
+                paragraphs = content.split("\\r\\n");
+                newlineSeparator = "\r\n";
+            } else {
+                // Unix style line endings
+                paragraphs = content.split("\\n\\n");
+                newlineSeparator = "\n\n";
+            }
 
             for (int i = 0; i < paragraphs.length; i++) {
                 for (String keyword : keywords) {
@@ -50,7 +63,7 @@ public enum RedactionLevel {
                     }
                 }
             }
-            return String.join("\r\n", paragraphs);
+            return String.join(newlineSeparator, paragraphs);
         }
     };
 
