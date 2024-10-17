@@ -52,14 +52,6 @@
                     <skip>false</skip>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>22</source>
-                    <target>22</target>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 
@@ -69,5 +61,5 @@
             <url>https://maven.pkg.github.com/ravesec/data-redaction-toolkit</url>
         </repository>
     </distributionManagement>
-    
+
 </project>
