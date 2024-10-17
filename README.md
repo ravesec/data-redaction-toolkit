@@ -11,7 +11,7 @@ The goal of this software is to allow any user to quickly and easily batch-redac
 ## Supported File Extensions
 | File Type | Supported |
 |-----------|:---------:|
-| .txt      |     ❌     |
+| .txt      |     ✔️     |
 | .png      |     ❌     |
 | .jpg      |     ❌     |
 | .jpeg     |     ❌     |
