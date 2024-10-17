@@ -42,7 +42,7 @@ jobs:
           VERSION="${{ env.VERSION }}"
           MAJOR=$(echo $VERSION | cut -d'.' -f1)
           MINOR=$(echo $VERSION | cut -d'.' -f2)
-          REVISION=$(echo $VERSION | cut -d'.' -f3)
+          REVISION=$(echo $VERSION | cut -d'.' -f3 | cut -d'-' -f1)
           NEW_REVISION=$((REVISION + 1))
           TIMESTAMP=$(date +%Y%m%d%H%M)
           NEW_VERSION="$MAJOR.$MINOR.$NEW_REVISION-$TIMESTAMP"
