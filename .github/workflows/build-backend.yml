@@ -39,6 +39,7 @@ jobs:
       - name: Increment version
         id: increment_version
         run: |
+          cd Backend
           VERSION="${{ env.VERSION }}"
           MAJOR=$(echo $VERSION | cut -d'.' -f1)
           MINOR=$(echo $VERSION | cut -d'.' -f2)
