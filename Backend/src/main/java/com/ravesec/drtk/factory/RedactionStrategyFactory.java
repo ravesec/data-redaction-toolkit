@@ -13,11 +13,11 @@ public class RedactionStrategyFactory {
 
     static {
         strategyMap.put(".txt", new TextFileRedactor());
-        strategyMap.put(".pdf", new PDFRedactor());
-
-        strategyMap.put(".docx", new WordFileRedactor());
-        strategyMap.put(".doc", new WordFileRedactor());
-        strategyMap.put(".odt", new PDFRedactor());
+//        strategyMap.put(".pdf", new PDFRedactor());
+//
+//        strategyMap.put(".docx", new WordFileRedactor());
+//        strategyMap.put(".doc", new WordFileRedactor());
+//        strategyMap.put(".odt", new PDFRedactor());
     }
 
     public static RedactionStrategy getRedactionStrategy(String filePath) {
