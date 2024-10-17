@@ -1,4 +1,4 @@
-package com.drtk.core;
+package com.ravesec.drtk.core;
 
 public enum RedactionLevel {
     LOW {

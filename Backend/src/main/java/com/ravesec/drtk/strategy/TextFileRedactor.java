@@ -1,6 +1,6 @@
-package com.drtk.strategy;
+package com.ravesec.drtk.strategy;
 
-public class PDFRedactor implements RedactionStrategy {
+public class TextFileRedactor implements RedactionStrategy {
     @Override
     public void redact(String filePath, String[] keywords, int redactionLevel) throws Exception {
 

@@ -1,7 +1,7 @@
-package com.drtk.redactor;
+package com.ravesec.drtk.redactor;
 
-import com.drtk.core.RedactionLevel;
-import com.drtk.strategy.RedactionStrategy;
+import com.ravesec.drtk.core.RedactionLevel;
+import com.ravesec.drtk.strategy.RedactionStrategy;
 
 public class FileRedactor {
     private RedactionStrategy strategy;

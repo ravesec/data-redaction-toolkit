@@ -1,4 +1,4 @@
-package com.drtk.strategy;
+package com.ravesec.drtk.strategy;
 
 public class WordFileRedactor implements RedactionStrategy {
     @Override

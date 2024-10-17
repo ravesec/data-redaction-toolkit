@@ -1,6 +1,6 @@
-package com.drtk.core;
+package com.ravesec.drtk.core;
 
-import com.drtk.redactor.FileRedactor;
+import com.ravesec.drtk.redactor.FileRedactor;
 import picocli.CommandLine;
 import picocli.CommandLine.Parameters;
 import picocli.CommandLine.Option;

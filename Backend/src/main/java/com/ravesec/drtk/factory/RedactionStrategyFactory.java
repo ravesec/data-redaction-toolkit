@@ -1,9 +1,9 @@
-package com.drtk.factory;
+package com.ravesec.drtk.factory;
 
-import com.drtk.strategy.PDFRedactor;
-import com.drtk.strategy.RedactionStrategy;
-import com.drtk.strategy.TextFileRedactor;
-import com.drtk.strategy.WordFileRedactor;
+import com.ravesec.drtk.strategy.PDFRedactor;
+import com.ravesec.drtk.strategy.RedactionStrategy;
+import com.ravesec.drtk.strategy.TextFileRedactor;
+import com.ravesec.drtk.strategy.WordFileRedactor;
 
 import java.util.HashMap;
 import java.util.Map;

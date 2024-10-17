@@ -18,7 +18,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>com.drtk.core.DataRedactionCLI</mainClass>
+                  <mainClass>com.ravesec.drtk.core.DataRedactionCLI</mainClass>
                 </transformer>
               </transformers>
             </configuration>
