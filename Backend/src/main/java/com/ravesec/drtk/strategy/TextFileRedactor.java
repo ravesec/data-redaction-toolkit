@@ -11,13 +11,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class TextFileRedactor implements RedactionStrategy {
+public final class TextFileRedactor implements RedactionStrategy {
     @Override
     public void redact(String filePath, String[] keywords, RedactionLevel redactionLevel) throws Exception {
-//        Path path = Paths.get(filePath);
-//        String content = Files.readString(path, StandardCharsets.UTF_8);
-//        content = redactionLevel.applyRedaction(content, keywords);
-//        Files.writeString(path, content, StandardCharsets.UTF_8);
         Path path = Paths.get(filePath);
         String content = null;
         Charset correctCharset = null;
