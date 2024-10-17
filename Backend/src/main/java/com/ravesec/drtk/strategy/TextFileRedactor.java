@@ -45,7 +45,7 @@ public class TextFileRedactor implements RedactionStrategy {
             throw new IOException("Unable to redact text file: " + filePath);
         }
 
-        content = redactionLevel.applyRedaction(content, keywords);
+        content = redactionLevel.applyRedaction(content, keywords, correctCharset);
 
         try (BufferedWriter writer = Files.newBufferedWriter(path, correctCharset)) {
             writer.write(content);
