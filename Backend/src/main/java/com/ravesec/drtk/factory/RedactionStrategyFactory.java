@@ -4,6 +4,7 @@ import com.ravesec.drtk.strategy.PDFRedactor;
 import com.ravesec.drtk.strategy.RedactionStrategy;
 import com.ravesec.drtk.strategy.TextFileRedactor;
 import com.ravesec.drtk.strategy.WordFileRedactor;
+import com.ravesec.drtk.utils.FileUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +22,7 @@ public class RedactionStrategyFactory {
     }
 
     public static RedactionStrategy getRedactionStrategy(String filePath) {
-        String fileExtension = getFileExtension(filePath);
+        String fileExtension = FileUtils.getFileExtension(filePath);
         RedactionStrategy redactionStrategy = strategyMap.get(fileExtension);
 
         if (redactionStrategy == null) {
@@ -29,15 +30,5 @@ public class RedactionStrategyFactory {
         }
 
         return redactionStrategy;
-    }
-
-    private static String getFileExtension(String filePath) {
-        int dotIndex = filePath.lastIndexOf('.');
-
-        if (dotIndex != -1 && dotIndex != filePath.length() - 1) {
-            return filePath.substring(dotIndex).toLowerCase();
-        } else {
-            throw new IllegalArgumentException("Invalid file extension for file: " + filePath);
-        }
     }
 }
