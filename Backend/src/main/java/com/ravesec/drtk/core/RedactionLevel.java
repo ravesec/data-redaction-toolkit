@@ -39,13 +39,18 @@ public enum RedactionLevel {
         public String applyRedaction(String content, String[] keywords, Charset charset) {
             String replacementCharacter = RedactionLevel.getReplacementCharacterFromCharset(charset);
 
-            for (String keyword : keywords) {
-                // Use newlines as paragraph delimiters (modify based on the file format)
-                //content = RedactionLevel.redactWithPattern(content, keyword, "(?i)([^\\n]*\\n)*?[^\\n]*" + Pattern.quote(keyword) + "[^\\n]*(\\n[^\\n]*)*", replacementCharacter); v0.6
-                content = RedactionLevel.redactWithPattern(content, keyword, "(?i)([^\\n]+\\n+)*?[^\\n]*" + Pattern.quote(keyword) + "[^\\n]*(\\n+[^\\n]*)*", replacementCharacter);
+            // Using split-based redaction
+            String[] paragraphs = content.split("\\n{2,}");
 
+            for (int i = 0; i < paragraphs.length; i++) {
+                for (String keyword : keywords) {
+                    if (paragraphs[i].toLowerCase().contains(keyword.toLowerCase())) {
+                        // Redact the entire paragraph
+                        paragraphs[i] = paragraphs[i].replaceAll(".", replacementCharacter);
+                    }
+                }
             }
-            return content;
+            return String.join("\n\n", paragraphs);
         }
     };
 
