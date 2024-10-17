@@ -6,7 +6,7 @@
 
     <groupId>com.ravesec.drtk</groupId>
     <artifactId>drtk-cli</artifactId>
-    <version>0.1.10-202410171118</version>
+    <version>0.1.11-202410171423</version>
 
     <dependencies>
         <dependency>
