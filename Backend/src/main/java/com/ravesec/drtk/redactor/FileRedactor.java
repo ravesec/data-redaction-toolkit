@@ -5,7 +5,7 @@ import com.ravesec.drtk.factory.RedactionStrategyFactory;
 import com.ravesec.drtk.strategy.RedactionStrategy;
 
 public class FileRedactor {
-    private RedactionStrategy strategy;
+    private final RedactionStrategy strategy;
 
     public FileRedactor(String filePath) {
         this.strategy = RedactionStrategyFactory.getRedactionStrategy(filePath);
