@@ -14,11 +14,11 @@ jobs:
     steps:
       # Checkout the repo
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Setup JDK 17
       - name: Set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
@@ -42,21 +42,23 @@ jobs:
           VERSION="${{ env.VERSION }}"
           MAJOR=$(echo $VERSION | cut -d'.' -f1)
           MINOR=$(echo $VERSION | cut -d'.' -f2)
-          NEW_MINOR=$((MINOR + 1))
+          REVISION=$(echo $VERSION | cut -d'.' -f3)
+          NEW_REVISION=$((REVISION + 1))
           TIMESTAMP=$(date +%Y%m%d%H%M)
-          NEW_VERSION="$MAJOR.$NEW_MINOR-$TIMESTAMP"
+          NEW_VERSION="$MAJOR.$MINOR.$NEW_REVISION-$TIMESTAMP"
           echo "New version: $NEW_VERSION"
-          mvn versions:set -DnewVersion=$NEW_VERSION
+          cd Backend && mvn versions:set -DnewVersion=$NEW_VERSION
           echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
 
-      # Cache Maven dependencies to speed up builds
-      #- name: Cache Maven Dependencies
-      #  uses: actions/cache@v3
-      #  with:
-      #    path: ~/.m2/repository
-      #    key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-      #    restore-keys: |
-      #      ${{ runner.os }}-maven
+      # Commit version changes to pom.xml
+      - name: Commit new version to pom.xml
+        run: |
+          cd Backend
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add pom.xml
+          git commit -m "Update version to ${{ env.NEW_VERSION }}"
+          git push
 
       # Build the project
       - name: Build with Maven
@@ -64,10 +66,10 @@ jobs:
 
       # Upload JAR artifact
       - name: Upload JAR file
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: DRTK-CLI-JAR-${{ env.NEW_VERSION }}
-          path: Backend/target/Backend-${{ env.NEW_VERSION }}.jar
+          name: drtk-cli
+          path: Backend/target/drtk-cli-${{ env.NEW_VERSION }}.jar
 
       # Publish to Github Packages
       - name: Publish JAR to GitHub Packages
