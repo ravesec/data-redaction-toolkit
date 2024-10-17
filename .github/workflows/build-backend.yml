@@ -67,7 +67,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: DRTK-CLI-JAR-${{ env.NEW_VERSION }}
-          path: Backend/target/Backend-${{ env.NEW_VERSION }}.jar
+          path: Backend/target/drtk-cli-${{ env.NEW_VERSION }}.jar
 
       # Publish to Github Packages
       - name: Publish JAR to GitHub Packages
