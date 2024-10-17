@@ -12,8 +12,10 @@ public enum RedactionLevel {
         // This redaction level simply redacts each keyword.
         @Override
         public String applyRedaction(String content, String[] keywords, Charset charset) {
+            String replacementCharacter = RedactionLevel.getReplacementCharacterFromCharset(charset);
+
             for (String keyword : keywords) {
-                String replacement = keyword.replaceAll(".", getReplacementCharacterFromCharset(charset));
+                String replacement = keyword.replaceAll(".", replacementCharacter);
                 content = content.replaceAll("(?i)" + Pattern.quote(keyword), replacement);
             }
             return content;
@@ -23,8 +25,10 @@ public enum RedactionLevel {
         // This redaction level redacts entire sentences if they contain a keyword.
         @Override
         public String applyRedaction(String content, String[] keywords, Charset charset) {
+            String replacementCharacter = RedactionLevel.getReplacementCharacterFromCharset(charset);
+
             for (String keyword : keywords) {
-                content = RedactionLevel.redactWithPattern(content, keyword, "\\b[^.]*" + Pattern.quote(keyword) + "[^.]*\\b", getReplacementCharacterFromCharset(charset));
+                content = RedactionLevel.redactWithPattern(content, keyword, "\\b[^.]*" + Pattern.quote(keyword) + "[^.]*\\b", replacementCharacter);
             }
             return content;
         }
@@ -33,8 +37,11 @@ public enum RedactionLevel {
         // This redaction level redacts entire paragraphs if they contain a keyword.
         @Override
         public String applyRedaction(String content, String[] keywords, Charset charset) {
+            String replacementCharacter = RedactionLevel.getReplacementCharacterFromCharset(charset);
+
             for (String keyword : keywords) {
-                content = RedactionLevel.redactWithPattern(content, keyword, "\\b.*" + Pattern.quote(keyword) + ".*\\b", getReplacementCharacterFromCharset(charset));
+                // Use newlines as paragraph delimiters (modify based on the file format)
+                content = RedactionLevel.redactWithPattern(content, keyword, "(?i)([^\\n]*\\n)*?[^\\n]*" + Pattern.quote(keyword) + "[^\\n]*(\\n[^\\n]*)*", replacementCharacter);
             }
             return content;
         }
