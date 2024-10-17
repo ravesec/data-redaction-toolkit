@@ -1,10 +1,10 @@
 name: Build Java Backend
 
-# Trigger on pushes to main
+# Trigger automatically when changes are made in the backend
 on:
   push:
-    branches:
-      - main
+    paths:
+      - 'Backend/src/**'
   workflow_dispatch:
 
 jobs:
@@ -24,18 +24,50 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+      # Increment version numbers
+
+      # Extract current version from pom.xml
+      - name: Get current version
+        id: get_version
+        run: |
+          cd Backend
+          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          echo "Current version: $VERSION"
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      # Increment the version
+      - name: Increment version
+        id: increment_version
+        run: |
+          VERSION="${{ env.VERSION }}"
+          MAJOR=$(echo $VERSION | cut -d'.' -f1)
+          MINOR=$(echo $VERSION | cut -d'.' -f2)
+          NEW_MINOR=$((MINOR + 1))
+          TIMESTAMP=$(date +%Y%m%d%H%M)
+          NEW_VERSION="$MAJOR.$NEW_MINOR-$TIMESTAMP"
+          echo "New version: $NEW_VERSION"
+          mvn versions:set -DnewVersion=$NEW_VERSION
+          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
+
       # Cache Maven dependencies to speed up builds
-      - name: Cache Maven Dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven
+      #- name: Cache Maven Dependencies
+      #  uses: actions/cache@v3
+      #  with:
+      #    path: ~/.m2/repository
+      #    key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+      #    restore-keys: |
+      #      ${{ runner.os }}-maven
 
       # Build the project
       - name: Build with Maven
         run: cd Backend && mvn clean package
+
+      # Upload JAR artifact
+      - name: Upload JAR file
+        uses: actions/upload-artifact@v3
+        with:
+          name: DRTK-CLI-JAR-${{ env.NEW_VERSION }}
+          path: Backend/target/Backend-${{ env.NEW_VERSION }}.jar
 
       # Publish to Github Packages
       - name: Publish JAR to GitHub Packages
