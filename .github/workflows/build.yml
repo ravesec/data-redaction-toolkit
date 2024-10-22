@@ -85,6 +85,12 @@ jobs:
           name: drtk-cli
           path: drtk-cli/target/drtk-cli-${{ env.NEW_VERSION }}.jar
 
+      # Publish to Github Packages
+      - name: Publish JAR to GitHub Packages
+        run: cd drtk-cli && mvn deploy -s settings.xml
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   create_release:
     needs: [build_drtk_gui, build_drtk_cli]
     runs-on: ubuntu-latest
