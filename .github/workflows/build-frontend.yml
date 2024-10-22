@@ -20,6 +20,9 @@ jobs:
         with:
           dotnet-version: '8.0'
 
+      - name: Install required workloads
+        run: cd .\drtk-gui\ && dotnet workload install
+
       - name: Restore dependencies
         run: cd .\drtk-gui\ && dotnet restore
 
