@@ -75,35 +75,40 @@
             </TabItem>
             <TabItem Header="PII" ToolTip.Tip="Matches data based on known patterns.">
                 <!-- PII Options Checkboxes -->
-                <StackPanel>
-                    <CheckBox Content="Phone Numbers"/>
-                    <CheckBox Content="Addresses"/>
-                    <CheckBox Content="Email Addresses"/>
-                    <CheckBox Content="Social Security Numbers"/>
-                    <CheckBox Content="Driver's License Numbers"/>
-                    <CheckBox Content="Passport Numbers"/>
-                    <CheckBox Content="Dates"/>
-                    <CheckBox Content="IPv4 Addresses"/>
-                    <CheckBox Content="IPv6 Addresses"/>
-                    <CheckBox Content="MAC Addresses"/>
-                    <CheckBox Content="Social Media Handles"/>
-                    <CheckBox Content="Credit/Debit Card Numbers"/>
-                    <CheckBox Content="Bank Account Numbers"/>
-                    <CheckBox Content="Routing Numbers"/>
-                    <CheckBox Content="VIN Numbers"/>
+                <StackPanel Name="PIIPanel">
+                    <CheckBox Content="Phone Numbers" IsCheckedChanged="ToggleButton_OnIsCheckedChanged"/>
+                    <CheckBox Content="Addresses" IsCheckedChanged="ToggleButton_OnIsCheckedChanged"/>
+                    <CheckBox Content="Email Addresses" IsCheckedChanged="ToggleButton_OnIsCheckedChanged"/>
+                    <CheckBox Content="Social Security Numbers" IsCheckedChanged="ToggleButton_OnIsCheckedChanged"/>
+                    <CheckBox Content="Driver's License Numbers" IsCheckedChanged="ToggleButton_OnIsCheckedChanged"/>
+                    <CheckBox Content="Passport Numbers" IsCheckedChanged="ToggleButton_OnIsCheckedChanged"/>
+                    <CheckBox Content="Dates" IsCheckedChanged="ToggleButton_OnIsCheckedChanged"/>
+                    <CheckBox Content="IPv4 Addresses" IsCheckedChanged="ToggleButton_OnIsCheckedChanged"/>
+                    <CheckBox Content="IPv6 Addresses" IsCheckedChanged="ToggleButton_OnIsCheckedChanged"/>
+                    <CheckBox Content="MAC Addresses" IsCheckedChanged="ToggleButton_OnIsCheckedChanged"/>
+                    <CheckBox Content="Social Media Handles" IsCheckedChanged="ToggleButton_OnIsCheckedChanged"/>
+                    <CheckBox Content="Credit/Debit Card Numbers" IsCheckedChanged="ToggleButton_OnIsCheckedChanged"/>
+                    <CheckBox Content="Bank Account Numbers" IsCheckedChanged="ToggleButton_OnIsCheckedChanged"/>
+                    <CheckBox Content="Routing Numbers" IsCheckedChanged="ToggleButton_OnIsCheckedChanged"/>
+                    <CheckBox Content="VIN Numbers" IsCheckedChanged="ToggleButton_OnIsCheckedChanged"/>
                 </StackPanel>
             </TabItem>
         </TabControl>
         
         <!-- Files Area -->
         <Grid Grid.Row="1" Grid.Column="1" Background="{DynamicResource MainGridBackgroundColor}">
-            <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24">Select Files to Get Started</Label>
+            <ScrollViewer IsVisible="False" Name="FilesPanelScrollViewer">
+                <StackPanel Name="FilesPanel" LayoutUpdated="FilesPanel_OnLayoutUpdated">
+                    <!-- Selected files dynamically get put here -->
+                </StackPanel>
+            </ScrollViewer>
+            <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Name="GetStartedLabel">Select Files to Get Started</Label>
         </Grid>
         
         <!-- Controls Panel -->
         <!-- Left Buttons -->
         <Grid Grid.Column="0" Grid.Row="2" ColumnDefinitions="*, *" Background="{DynamicResource PrimaryBackgroundColor}">
-            <Button Content="Select Files" Background="{DynamicResource ButtonFocusColor}"/>
+            <Button Content="Select Files" Background="{DynamicResource ButtonFocusColor}" Click="Button_OnClick"/>
             <Button Grid.Column="1" Content="Set Redaction Level" Name="RedactionLevelButton">
                 <Button.Flyout>
                     <Flyout Placement="RightEdgeAlignedBottom">
@@ -123,7 +128,8 @@
             <Button Grid.Column="0"
                     Background="{DynamicResource ActiveButtonColor}"
                     IsEnabled="False"
-                    Content="Redact Data"/>
+                    Content="Redact Data"
+                    Name="RedactDataButton"/>
         </Grid>
     </Grid>
 

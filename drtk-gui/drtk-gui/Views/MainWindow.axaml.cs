@@ -1,9 +1,13 @@
+using System;
+using System.IO;
+using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.Media;
+using Avalonia.Platform.Storage;
 
 namespace drtk_gui.Views;
 
@@ -41,6 +45,7 @@ public partial class MainWindow : Window
             }
         }
         e.Handled = true; // Mark the event as handled
+        UpdateRedactButtonState();
     }
 
     private bool IsWordAlreadyAdded(string word)
@@ -110,5 +115,143 @@ public partial class MainWindow : Window
         
         // Add the keyword panel to the main stack panel
         KeywordsPanel.Children.Add(border);
+    }
+
+    private async void Button_OnClick(object? sender, RoutedEventArgs e)
+    {
+        var storageProvider = StorageProvider;
+        
+        var result = await storageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+        {
+            Title = "Select Files",
+            AllowMultiple = true // Allow selecting multiple files
+        });
+
+        if (result.Count == 0)
+            return;
+        
+        GetStartedLabel.IsVisible = false;
+        FilesPanelScrollViewer.IsVisible = true;
+
+        foreach (var file in result)
+        {
+            AddFileToStackPanel(file.Path.LocalPath);
+        }
+        
+        UpdateRedactButtonState();
+    }
+
+    private readonly string[] _compatibleFileTypes = [".txt"];
+    
+    private void AddFileToStackPanel(string filePath)
+    {
+        var fileInfo = new FileInfo(filePath);
+        var fileType = fileInfo.Extension.ToLower();
+        var isCompatible = _compatibleFileTypes.Contains(fileType);
+
+        var border = new Border
+        {
+            CornerRadius = new CornerRadius(10),
+            BorderBrush = Brushes.Transparent,
+            BorderThickness = new Thickness(0),
+            Background = new SolidColorBrush(isCompatible ? Color.Parse("#3592c4") : Color.Parse("#ff8503")),
+            Margin = new Thickness(5),
+        };
+
+        var fileGrid = new Grid
+        {
+            ColumnDefinitions = new ColumnDefinitions("*, Auto, Auto, Auto"),
+            Margin = new Thickness(5)
+        };
+
+        if (!isCompatible)
+        {
+            ToolTip.SetTip(fileGrid, $"Unsupported file type: {fileType}");
+        }
+        
+        // File path
+        var filePathTextBlock = new TextBlock
+        {
+            Text = fileInfo.FullName,
+            VerticalAlignment = VerticalAlignment.Center,
+            Foreground = new SolidColorBrush(isCompatible ? Color.Parse("#ffffff") : Color.Parse("#000000")),
+            Margin = new Thickness(5),
+        };
+        Grid.SetColumn(filePathTextBlock, 0);
+        fileGrid.Children.Add(filePathTextBlock);
+        
+        // File size (kb)
+        var fileSizeTextBlock = new TextBlock
+        {
+            Text = $"{fileInfo.Length / 1024} KB",
+            VerticalAlignment = VerticalAlignment.Center,
+            HorizontalAlignment = HorizontalAlignment.Left,
+            TextAlignment = TextAlignment.Left,
+            Foreground = new SolidColorBrush(isCompatible ? Color.Parse("#ffffff") : Color.Parse("#000000")),
+            Margin = new Thickness(5)
+        };
+        Grid.SetColumn(fileSizeTextBlock, 1);
+        fileGrid.Children.Add(fileSizeTextBlock);
+        
+        // File type
+        var fileTypeTextBlock = new TextBlock
+        {
+            Text = fileType,
+            VerticalAlignment = VerticalAlignment.Center,
+            Foreground = new SolidColorBrush(isCompatible ? Color.Parse("#ffffff") : Color.Parse("#000000")),
+            Margin = new Thickness(5)
+        };
+        Grid.SetColumn(fileTypeTextBlock, 2);
+        fileGrid.Children.Add(fileTypeTextBlock);
+        
+        // Removal button
+        var removalButton = new Button
+        {
+            Content = new TextBlock
+            {
+                Text = "X",
+                Foreground = new SolidColorBrush(isCompatible ? Color.Parse("#ffffff") : Color.Parse("#000000")),
+                TextDecorations = TextDecorations.Underline,
+                VerticalAlignment = VerticalAlignment.Center,
+                FontWeight = FontWeight.Heavy
+            },
+            Background = Brushes.Transparent,
+            BorderThickness = new Thickness(0),
+            HorizontalAlignment = HorizontalAlignment.Right
+        };
+        removalButton.Click += (s, e) => FilesPanel.Children.Remove(border);
+        Grid.SetColumn(removalButton, 3);
+        fileGrid.Children.Add(removalButton);
+        
+        border.Child = fileGrid;
+        
+        // Add fileGrid to the files panel
+        FilesPanel.Children.Add(border);
+    }
+
+    private void UpdateRedactButtonState()
+    {
+        var hasSupportedFile = FilesPanel.Children
+            .OfType<Border>()
+            .Select(border => border.Child as Grid)
+            .Any(grid => grid?.Children[2] is TextBlock textBlock && _compatibleFileTypes.Contains(textBlock.Text));
+        var hasKeyword = KeywordsPanel.Children.Count > 0;
+        var hasCheckedPii = PIIPanel.Children
+            .OfType<CheckBox>()
+            .Any(checkbox => checkbox.IsChecked == true);
+        
+        RedactDataButton.IsEnabled = hasSupportedFile && (hasKeyword || hasCheckedPii);
+    }
+
+    private void ToggleButton_OnIsCheckedChanged(object? sender, RoutedEventArgs e)
+    {
+        UpdateRedactButtonState();
+    }
+
+    private void FilesPanel_OnLayoutUpdated(object? sender, EventArgs e)
+    {
+        UpdateRedactButtonState();
+        var hasFiles = FilesPanel.Children.OfType<Border>().Any();
+        GetStartedLabel.IsVisible = !hasFiles;
     }
 }
