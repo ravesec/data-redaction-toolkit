@@ -24,15 +24,39 @@
         </Grid>
         
         <!-- Keyword Area -->
-        <Grid Grid.Row="1" Grid.Column="0" RowDefinitions="*, Auto" Background="#21252b" Margin="1">
-            <!-- Keyword display area -->
-            <StackPanel Grid.Row="0">
+        <TabControl Grid.Row="1" Grid.Column="0" Background="#21252b" Margin="1">
+            <TabItem Header="Keywords" Foreground="White">
+                <Grid RowDefinitions="*, Auto" Background="#21252b">
+                    <!-- Keyword display area -->
+                    <StackPanel Grid.Row="0">
                 
-            </StackPanel>
+                    </StackPanel>
             
-            <!-- Keyword Entry Area -->
-            <MaskedTextBox Grid.Row="1" Watermark="Enter Sensitive Data to Redact..." Foreground="White" AsciiOnly="True" KeyDown="InputElement_OnKeyDown"></MaskedTextBox>
-        </Grid>
+                    <!-- Keyword Entry Area -->
+                    <MaskedTextBox Grid.Row="1" Watermark="Enter Sensitive Data to Redact..." Foreground="White" AsciiOnly="True" KeyDown="InputElement_OnKeyDown"></MaskedTextBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="PII" Foreground="White" >
+                <!-- PII Options Checkboxes -->
+                <StackPanel>
+                    <CheckBox Content="Phone Numbers" Foreground="White"/>
+                    <CheckBox Content="Addresses"/>
+                    <CheckBox Content="Email Addresses"/>
+                    <CheckBox Content="Social Security Numbers"/>
+                    <CheckBox Content="Driver's License Numbers"/>
+                    <CheckBox Content="Passport Numbers"/>
+                    <CheckBox Content="Dates"/>
+                    <CheckBox Content="IPv4 Addresses"/>
+                    <CheckBox Content="IPv6 Addresses"/>
+                    <CheckBox Content="MAC Addresses"/>
+                    <CheckBox Content="Social Media Handles"/>
+                    <CheckBox Content="Credit/Debit Card Numbers"/>
+                    <CheckBox Content="Bank Account Numbers"/>
+                    <CheckBox Content="Routing Numbers"/>
+                    <CheckBox Content="VIN Numbers"/>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
         
         <!-- Files Area -->
         <Grid Grid.Row="1" Grid.Column="1" Background="#282c34">
@@ -43,7 +67,7 @@
         <!-- Left Buttons -->
         <Grid Grid.Column="0" Grid.Row="2" ColumnDefinitions="*, *" Background="#21252b" Margin="0,1,0,0">
             <Button Margin="5" Foreground="White" Background="#3d424b" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">Select Files</Button>
-            <Button Grid.Column="1" Margin="5" Foreground="White" Background="#3d424b" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">Redaction Options</Button>
+            <Button Grid.Column="1" Margin="5" Foreground="White" Background="#3d424b" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Content="Redaction Options"></Button>
         </Grid>
         
         <!-- Right Buttons -->
