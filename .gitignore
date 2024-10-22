@@ -2,7 +2,7 @@
 
 drtk-gui/drtk-gui/bin/
 drtk-gui/drtk-gui/obj/
-drtk-gui/.idea/
+drtk-gui/.idea/**
 
 # Java
 
