@@ -7,8 +7,8 @@
         Width="1366" Height="768"
         x:Class="drtk_gui.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="drtk_gui">
+        Icon="/Assets/favicon.ico"
+        Title="Data Redaction Toolkit">
 
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
@@ -55,19 +55,16 @@
 
     <!-- Main Grid -->
     <Grid RowDefinitions="Auto, *, Auto" ColumnDefinitions="*, 3*" Background="{DynamicResource MainGridBackgroundColor}">
-        <!-- DRTK Label -->
-        <Grid Grid.Row="0" ColumnSpan="3" Background="{DynamicResource PrimaryBackgroundColor}" Margin="0,0,0,1">
-            <Label Grid.Column="0" HorizontalAlignment="Center" FontSize="18">Data Redaction Toolkit</Label>
-        </Grid>
-        
         <!-- Options Area -->
         <TabControl Grid.Row="1" Grid.Column="0" Background="{DynamicResource PrimaryBackgroundColor}" Margin="0,0,1,0">
             <TabItem Header="Keywords">
                 <Grid RowDefinitions="*, Auto" Background="{DynamicResource PrimaryBackgroundColor}">
                     <!-- Keyword display area -->
-                    <StackPanel Grid.Row="0">
-                
-                    </StackPanel>
+                    <ScrollViewer Grid.Row="0" AllowAutoHide="True">
+                        <StackPanel Name="KeywordsPanel">
+                            <!-- Keywords go here dynamically -->
+                        </StackPanel>
+                    </ScrollViewer>
             
                     <!-- Keyword Entry Area -->
                     <MaskedTextBox Grid.Row="1" Watermark="Enter Sensitive Data to Redact..."
