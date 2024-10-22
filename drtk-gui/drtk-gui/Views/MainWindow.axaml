@@ -15,6 +15,35 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <!-- Main Grid -->
+    <Grid RowDefinitions="Auto, *, Auto" ColumnDefinitions="*, 3*" Background="#333841">
+        <!-- DRTK Label -->
+        <Grid Grid.Row="0" ColumnSpan="3" Background="#21252b" Margin="0,0,0,1">
+            <Label Grid.Column="0" HorizontalAlignment="Center" FontSize="18" Foreground="#7e8491">Data Redaction Toolkit</Label>
+        </Grid>
+        
+        <!-- Keyword Area -->
+        <Grid Grid.Row="1" Grid.Column="0" RowDefinitions="*, Auto" Background="#21252b" Margin="1">
+            <!-- Keyword display area -->
+            <StackPanel Grid.Row="0">
+                
+            </StackPanel>
+            
+            <!-- Keyword Entry Area -->
+                <MaskedTextBox Grid.Row="1" Watermark="Enter Sensitive Keywords..." Foreground="White"></MaskedTextBox>
+        </Grid>
+        
+        <!-- Files Area -->
+        <Grid Grid.Row="1" Grid.Column="1" Background="#282c34">
+            <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Foreground="White">Select Files to Get Started</Label>
+        </Grid>
+        
+        <!-- Controls Panel -->
+        <Grid Grid.ColumnSpan="2" Grid.Row="2" ColumnDefinitions="Auto, Auto, *, Auto" Background="#21252b" Margin="0,1,0,0">
+            <Button Margin="5" Foreground="White" Background="#3d424b">Select Files</Button>
+            <Button Grid.Column="1" Margin="5" Foreground="White" Background="#3d424b">Redaction Options</Button>
+            <Button Grid.Column="3" Margin="5" Foreground="White" Background="#3d424b">Redact Data</Button>
+        </Grid>
+    </Grid>
 
 </Window>
