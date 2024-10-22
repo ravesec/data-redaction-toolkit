@@ -1,4 +1,4 @@
-name: Build drtk-cli
+name: Build drtk cli backend
 
 # Trigger automatically when changes are made in the drtk-cli
 on:
