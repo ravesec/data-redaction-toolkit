@@ -166,7 +166,7 @@ public partial class MainWindow : Window
 
         if (!isCompatible)
         {
-            ToolTip.SetTip(fileGrid, $"Unsupported file type: {fileType}");
+            ToolTip.SetTip(border, $"Unsupported file type: {fileType}");
         }
         
         // File path
