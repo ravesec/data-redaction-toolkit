@@ -57,10 +57,10 @@
     <Grid RowDefinitions="Auto, *, Auto" ColumnDefinitions="*, 3*" Background="{DynamicResource MainGridBackgroundColor}">
         <!-- Options Area -->
         <TabControl Grid.Row="1" Grid.Column="0" Background="{DynamicResource PrimaryBackgroundColor}" Margin="0,0,1,0">
-            <TabItem Header="Keywords">
+            <TabItem Header="Keywords" ToolTip.Tip="Redacts the below keywords from files.">
                 <Grid RowDefinitions="*, Auto" Background="{DynamicResource PrimaryBackgroundColor}">
                     <!-- Keyword display area -->
-                    <ScrollViewer Grid.Row="0" AllowAutoHide="True">
+                    <ScrollViewer Grid.Row="0">
                         <StackPanel Name="KeywordsPanel">
                             <!-- Keywords go here dynamically -->
                         </StackPanel>
@@ -73,7 +73,7 @@
                                    Margin="0, 5, 0, 5"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="PII">
+            <TabItem Header="PII" ToolTip.Tip="Matches data based on known patterns.">
                 <!-- PII Options Checkboxes -->
                 <StackPanel>
                     <CheckBox Content="Phone Numbers"/>
