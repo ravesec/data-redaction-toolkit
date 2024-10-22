@@ -4,7 +4,7 @@ name: Build Java Backend
 on:
   push:
     paths:
-      - 'Backend/src/**'
+      - 'drtk-cli/src/**'
   workflow_dispatch:
 
 jobs:
@@ -30,7 +30,7 @@ jobs:
       - name: Get current version
         id: get_version
         run: |
-          cd Backend
+          cd drtk-cli
           VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
           echo "Current version: $VERSION"
           echo "VERSION=$VERSION" >> $GITHUB_ENV
@@ -53,7 +53,7 @@ jobs:
       # Commit version changes to pom.xml
       - name: Commit new version to pom.xml
         run: |
-          cd Backend
+          cd drtk-cli
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add pom.xml
@@ -62,17 +62,17 @@ jobs:
 
       # Build the project
       - name: Build with Maven
-        run: cd Backend && mvn clean package
+        run: cd drtk-cli && mvn clean package
 
       # Upload JAR artifact
       - name: Upload JAR file
         uses: actions/upload-artifact@v4
         with:
           name: drtk-cli
-          path: Backend/target/drtk-cli-${{ env.NEW_VERSION }}.jar
+          path: drtk-cli/target/drtk-cli-${{ env.NEW_VERSION }}.jar
 
       # Publish to Github Packages
       - name: Publish JAR to GitHub Packages
-        run: cd Backend && mvn deploy -s settings.xml
+        run: cd drtk-cli && mvn deploy -s settings.xml
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
