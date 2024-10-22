@@ -56,7 +56,7 @@
     <!-- Main Grid -->
     <Grid RowDefinitions="Auto, *, Auto" ColumnDefinitions="*, 3*" Background="{DynamicResource MainGridBackgroundColor}">
         <!-- Options Area -->
-        <TabControl Grid.Row="1" Grid.Column="0" Background="{DynamicResource PrimaryBackgroundColor}" Margin="0,0,1,0">
+        <TabControl Grid.Row="1" Grid.Column="0" Background="{DynamicResource PrimaryBackgroundColor}">
             <TabItem Header="Keywords" ToolTip.Tip="Redacts the below keywords from files.">
                 <Grid RowDefinitions="*, Auto" Background="{DynamicResource PrimaryBackgroundColor}">
                     <!-- Keyword display area -->
@@ -93,6 +93,21 @@
                     <CheckBox Content="VIN Numbers" IsCheckedChanged="ToggleButton_OnIsCheckedChanged"/>
                 </StackPanel>
             </TabItem>
+            <TabItem Header="Options" ToolTip.Tip="Change other redaction options.">
+                <StackPanel>
+                    <Label>Defaults to .\%userprofile%\Documents\DRTK\</Label>
+                    <Button>Set Output Folder</Button>
+                    <Separator />
+                    <Label>Choose Redaction Level</Label>
+                    <RadioButton GroupName="RedactionLevel" Content="LOW" IsChecked="True" ToolTip.Tip="Redacts matched data only."/>
+                    <RadioButton GroupName="RedactionLevel" Content="MEDIUM" ToolTip.Tip="Redacts sentences where matched data is found."/>
+                    <RadioButton GroupName="RedactionLevel" Content="HIGH" ToolTip.Tip="Redacts entire paragraphs where matched data is found."/>
+                    <Separator />
+                    <Label>Choose Redaction Mode</Label>
+                    <RadioButton GroupName="RedactionMode" Content="Make a Redacted Copy" IsChecked="True"/>
+                    <RadioButton GroupName="RedactionMode" Content="Overwrite Original File"/>
+                </StackPanel>
+            </TabItem>
         </TabControl>
         
         <!-- Files Area -->
@@ -108,7 +123,8 @@
         <!-- Controls Panel -->
         <!-- Left Buttons -->
         <Grid Grid.Column="0" Grid.Row="2" ColumnDefinitions="*, *" Background="{DynamicResource PrimaryBackgroundColor}">
-            <Button Content="Select Files" Background="{DynamicResource ButtonFocusColor}" Click="Button_OnClick"/>
+            <Button Grid.ColumnSpan="2" Content="Select Files" Background="{DynamicResource ButtonFocusColor}" Click="Button_OnClick"/>
+            <!--
             <Button Grid.Column="1" Content="Set Redaction Level" Name="RedactionLevelButton">
                 <Button.Flyout>
                     <Flyout Placement="RightEdgeAlignedBottom">
@@ -120,6 +136,7 @@
                     </Flyout>
                 </Button.Flyout>
             </Button>
+            -->
         </Grid>
         
         <!-- Right Buttons -->
