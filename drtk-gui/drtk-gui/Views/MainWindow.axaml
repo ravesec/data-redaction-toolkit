@@ -23,7 +23,7 @@
         <Color x:Key="ButtonBackgroundColor">#3d424b</Color>
         <Color x:Key="ButtonForegroundColor">White</Color>
         <Color x:Key="LabelForegroundColor">White</Color>
-        <Color x:Key="ActiveButtonColor">#499c54</Color>
+        <Color x:Key="ActiveButtonColor">#3592c4</Color>
         <Color x:Key="DisabledButtonColor">#5a5a5a</Color>
         <Color x:Key="MainGridBackgroundColor">#333841</Color>
         <Color x:Key="ButtonFocusColor">#3592c4</Color>
