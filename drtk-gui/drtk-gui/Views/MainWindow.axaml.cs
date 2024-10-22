@@ -104,7 +104,7 @@ public partial class MainWindow : Window
             BorderThickness = new Thickness(0),
             HorizontalAlignment = HorizontalAlignment.Right
         };
-        removeKeywordButton.Click += (s, e) => KeywordsPanel.Children.Remove(border);
+        removeKeywordButton.Click += (_, _) => KeywordsPanel.Children.Remove(border);
         
         // Add the label and button to the keyword panel
         keywordGrid.Children.Add(label);
@@ -219,7 +219,7 @@ public partial class MainWindow : Window
             BorderThickness = new Thickness(0),
             HorizontalAlignment = HorizontalAlignment.Right
         };
-        removalButton.Click += (s, e) => FilesPanel.Children.Remove(border);
+        removalButton.Click += (_, _) => FilesPanel.Children.Remove(border);
         Grid.SetColumn(removalButton, 3);
         fileGrid.Children.Add(removalButton);
         
