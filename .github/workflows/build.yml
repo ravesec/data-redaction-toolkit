@@ -156,12 +156,16 @@ jobs:
           --target main
 
       - name: Upload frontend .zip artifact to release
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           gh release upload ${{ env.NEW_VERSION }} \
           "./artifacts/drtk-gui/*.zip" \
           --clobber
 
       - name: Upload backend .jar artifact to release
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           gh release upload ${{ env.NEW_VERSION }} \
           "./artifacts/drtk-cli/*.jar" \
