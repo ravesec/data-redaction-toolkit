@@ -30,4 +30,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: drtk-gui
-          path: drtk-gui/bin/net8.0/win-x64/publish/
+          path: drtk-gui/drtk-gui/bin/Release/net8.0/win-x64/publish/
