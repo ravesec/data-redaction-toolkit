@@ -115,6 +115,11 @@ jobs:
         run: |
           echo ${{ env.NEW_VERSION }} > version.txt
 
+      - name: Fetch changes
+        run: |
+          git fetch
+          git pull
+
       - name: Commit new version
         run: |
           git config --global user.name "github-actions[bot]"
