@@ -1,6 +1,6 @@
-name: Build Java Backend
+name: Build drtk-cli
 
-# Trigger automatically when changes are made in the backend
+# Trigger automatically when changes are made in the drtk-cli
 on:
   push:
     paths:
@@ -47,7 +47,7 @@ jobs:
           TIMESTAMP=$(date +%Y%m%d%H%M)
           NEW_VERSION="$MAJOR.$MINOR.$NEW_REVISION-$TIMESTAMP"
           echo "New version: $NEW_VERSION"
-          cd Backend && mvn versions:set -DnewVersion=$NEW_VERSION
+          cd drtk-cli && mvn versions:set -DnewVersion=$NEW_VERSION
           echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
 
       # Commit version changes to pom.xml
