@@ -19,7 +19,7 @@
     <Grid RowDefinitions="Auto, *, Auto" ColumnDefinitions="*, 3*" Background="#333841">
         <!-- DRTK Label -->
         <Grid Grid.Row="0" ColumnSpan="3" Background="#21252b" Margin="0,0,0,1">
-            <Label Grid.Column="0" HorizontalAlignment="Center" FontSize="18" Foreground="#7e8491">Data Redaction Toolkit</Label>
+            <Label Grid.Column="0" HorizontalAlignment="Center" FontSize="18" Foreground="White">Data Redaction Toolkit</Label>
         </Grid>
         
         <!-- Keyword Area -->
@@ -30,7 +30,7 @@
             </StackPanel>
             
             <!-- Keyword Entry Area -->
-                <MaskedTextBox Grid.Row="1" Watermark="Enter Sensitive Keywords..." Foreground="White"></MaskedTextBox>
+            <MaskedTextBox Grid.Row="1" Watermark="Enter Sensitive Keywords..." Foreground="White" AsciiOnly="True" KeyDown="InputElement_OnKeyDown"></MaskedTextBox>
         </Grid>
         
         <!-- Files Area -->
