@@ -36,7 +36,7 @@
             <Setter Property="Background" Value="{DynamicResource ButtonBackgroundColor}"/>
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Margin" Value="2"/>
         </Style>
         
         <!-- Label style -->
@@ -104,7 +104,17 @@
         <!-- Left Buttons -->
         <Grid Grid.Column="0" Grid.Row="2" ColumnDefinitions="*, *" Background="{DynamicResource PrimaryBackgroundColor}">
             <Button Content="Select Files" Background="{DynamicResource ButtonFocusColor}"/>
-            <Button Grid.Column="1" Content="Redaction Options"/>
+            <Button Grid.Column="1" Content="Set Redaction Level" Name="RedactionLevelButton">
+                <Button.Flyout>
+                    <Flyout Placement="RightEdgeAlignedBottom">
+                        <StackPanel>
+                            <RadioButton GroupName="RedactionLevel" Content="LOW" IsChecked="True" ToolTip.Tip="Redacts matched data only."/>
+                            <RadioButton GroupName="RedactionLevel" Content="MEDIUM" ToolTip.Tip="Redacts sentences where matched data is found."/>
+                            <RadioButton GroupName="RedactionLevel" Content="HIGH" ToolTip.Tip="Redacts entire paragraphs where matched data is found."/>
+                        </StackPanel>
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
         </Grid>
         
         <!-- Right Buttons -->
