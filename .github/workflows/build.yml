@@ -1,4 +1,4 @@
-name: Build and Release DRTK Frontend and Backend
+name: Build and Release
 
 on:
   workflow_dispatch:
