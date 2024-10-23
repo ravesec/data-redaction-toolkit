@@ -101,9 +101,19 @@
                     <Separator />
                     
                     <Label>Choose Redaction Level</Label>
-                    <RadioButton GroupName="RedactionLevel" Content="LOW" IsChecked="True" ToolTip.Tip="Redacts matched data only."/>
-                    <RadioButton GroupName="RedactionLevel" Content="MEDIUM" ToolTip.Tip="Redacts sentences where matched data is found."/>
-                    <RadioButton GroupName="RedactionLevel" Content="HIGH" ToolTip.Tip="Redacts entire paragraphs where matched data is found."/>
+                    <RadioButton GroupName="RedactionLevel"
+                                 Content="LOW"
+                                 IsChecked="True"
+                                 ToolTip.Tip="Redacts matched data only."
+                                 Name="LowRedactionLevelRadioButton"/>
+                    <RadioButton GroupName="RedactionLevel"
+                                 Content="MEDIUM"
+                                 ToolTip.Tip="Redacts sentences where matched data is found."
+                                 Name="MediumRedactionLevelRadioButton"/>
+                    <RadioButton GroupName="RedactionLevel"
+                                 Content="HIGH"
+                                 ToolTip.Tip="Redacts entire paragraphs where matched data is found."
+                                 Name="HighRedactionLevelRadioButton"/>
                     
                     <Separator />
                     
@@ -148,7 +158,8 @@
                     IsEnabled="False"
                     Content="Redact Data"
                     Name="RedactDataButton"
-                    Margin="2,5,2,5"/>
+                    Margin="2,5,2,5"
+                    Click="RedactDataButton_OnClick"/>
         </Grid>
     </Grid>
 

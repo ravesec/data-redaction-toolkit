@@ -1,6 +1,8 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
@@ -249,5 +251,86 @@ public partial class MainWindow : Window
         UpdateRedactButtonState();
         var hasFiles = FilesPanel.Children.OfType<Border>().Any();
         GetStartedLabel.IsVisible = !hasFiles;
+    }
+
+    private string GetSelectedRedactionLevel()
+    {
+        if (LowRedactionLevelRadioButton.IsChecked == true) return "LOW";
+        if (MediumRedactionLevelRadioButton.IsChecked == true) return "MEDIUM";
+        return HighRedactionLevelRadioButton.IsChecked == true ? "HIGH" : "_";
+    }
+
+    private static async Task<int> RunJavaJarAsync(string filePath, string keywords, string redactionLevel)
+    {
+        try
+        {
+            var processStartInfo = new ProcessStartInfo
+            {
+                FileName = "java",
+                Arguments =
+                    $"-jar \"C:\\Program Files (x86)\\ravesec\\drtk\\drtk-cli-0.1.10-202410171118.jar\" \"{filePath}\" --data \"{keywords}\" --level {redactionLevel}",
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            using var process = Process.Start(processStartInfo);
+            if (process == null) return -1;
+
+            await process.WaitForExitAsync();
+            var args =
+                $"-jar \"C:\\Program Files (x86)\\ravesec\\drtk\\drtk-cli-0.1.10-202410171118.jar\" \"{filePath}\" --data \"{keywords}\" --level {redactionLevel}";
+            Console.WriteLine($"Arguments: {args}");
+            Console.WriteLine(await process.StandardOutput.ReadToEndAsync());
+            Console.WriteLine(await process.StandardError.ReadToEndAsync());
+            return process.ExitCode;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error running Java JAR: {ex.Message}");
+            return -1;
+        }
+    }
+
+    private async void RedactDataButton_OnClick(object? sender, RoutedEventArgs e)
+    {
+        var redactionLevel = GetSelectedRedactionLevel();
+        
+        // Get all keywords
+        var keywords = KeywordsPanel.Children
+            .OfType<Border>()
+            .Select(border => border.Child as Grid)
+            .Where(grid => grid is { Children.Count: > 0 })
+            .Select(grid => grid!.Children[0] as TextBlock)
+            .Where(tb => tb != null)
+            .Select(tb => tb!.Text)
+            .ToList();
+        
+        var keywordData = string.Join(",", keywords);
+
+        foreach (var border in FilesPanel.Children.OfType<Border>())
+        {
+            if (border.Child is not Grid fileGrid) continue;
+            
+            // Get file path
+            if (fileGrid.Children[0] is not TextBlock filePathTextBlock) continue;
+            var filePath = filePathTextBlock.Text;
+            
+            // Check if file is supported
+            if (fileGrid.Children[2] is not TextBlock fileTypeTextBlock) continue;
+            
+            var fileType = fileTypeTextBlock.Text;
+            if (!_compatibleFileTypes.Contains(fileType)) continue;
+            
+            if (string.IsNullOrEmpty(filePath)) continue;
+            
+            // Run the CLI JAR
+            var returnCode = await RunJavaJarAsync(filePath, keywordData, redactionLevel);
+            
+            // Update background color based on return code
+            border.Background = returnCode == 0 ? new SolidColorBrush(Color.Parse("#499c54")) : // Green for success
+                new SolidColorBrush(Color.Parse("#d65347")); // Red for failure
+        }
     }
 }
