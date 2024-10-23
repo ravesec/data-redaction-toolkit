@@ -97,15 +97,25 @@
                 <StackPanel>
                     <Label>Defaults to .\%userprofile%\Documents\DRTK\</Label>
                     <Button>Set Output Folder</Button>
+                    
                     <Separator />
+                    
                     <Label>Choose Redaction Level</Label>
                     <RadioButton GroupName="RedactionLevel" Content="LOW" IsChecked="True" ToolTip.Tip="Redacts matched data only."/>
                     <RadioButton GroupName="RedactionLevel" Content="MEDIUM" ToolTip.Tip="Redacts sentences where matched data is found."/>
                     <RadioButton GroupName="RedactionLevel" Content="HIGH" ToolTip.Tip="Redacts entire paragraphs where matched data is found."/>
+                    
                     <Separator />
+                    
                     <Label>Choose Redaction Mode</Label>
                     <RadioButton GroupName="RedactionMode" Content="Make a Redacted Copy" IsChecked="True"/>
                     <RadioButton GroupName="RedactionMode" Content="Overwrite Original File"/>
+                    
+                    <Separator />
+                     
+                    <!-- Not yet implemented -->
+                    <Label>Keyword Options</Label>
+                    <CheckBox Name="CaseSensitiveKeywords" Content="Case-sensitive" IsChecked="False"/>
                 </StackPanel>
             </TabItem>
         </TabControl>
