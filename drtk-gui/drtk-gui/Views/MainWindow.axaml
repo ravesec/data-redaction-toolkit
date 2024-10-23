@@ -123,7 +123,12 @@
         <!-- Controls Panel -->
         <!-- Left Buttons -->
         <Grid Grid.Column="0" Grid.Row="2" ColumnDefinitions="*, *" Background="{DynamicResource PrimaryBackgroundColor}">
-            <Button Grid.ColumnSpan="2" Content="Select Files" Background="{DynamicResource ButtonFocusColor}" Click="Button_OnClick"/>
+            <Button 
+                Grid.ColumnSpan="2"
+                Content="Select Files"
+                Background="{DynamicResource ButtonFocusColor}"
+                Click="Button_OnClick"
+                Margin="5"/>
         </Grid>
         
         <!-- Right Buttons -->
@@ -132,7 +137,8 @@
                     Background="{DynamicResource ActiveButtonColor}"
                     IsEnabled="False"
                     Content="Redact Data"
-                    Name="RedactDataButton"/>
+                    Name="RedactDataButton"
+                    Margin="2,5,2,5"/>
         </Grid>
     </Grid>
 
