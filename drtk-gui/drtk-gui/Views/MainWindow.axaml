@@ -75,7 +75,7 @@
             </TabItem>
             <TabItem Header="PII" ToolTip.Tip="Matches data based on known patterns.">
                 <!-- PII Options Checkboxes -->
-                <StackPanel Name="PIIPanel">
+                <StackPanel Name="PiiPanel">
                     <CheckBox Content="Phone Numbers" IsCheckedChanged="ToggleButton_OnIsCheckedChanged"/>
                     <CheckBox Content="Addresses" IsCheckedChanged="ToggleButton_OnIsCheckedChanged"/>
                     <CheckBox Content="Email Addresses" IsCheckedChanged="ToggleButton_OnIsCheckedChanged"/>

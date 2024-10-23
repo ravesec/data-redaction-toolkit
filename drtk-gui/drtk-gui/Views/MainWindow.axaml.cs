@@ -236,7 +236,7 @@ public partial class MainWindow : Window
             .Select(border => border.Child as Grid)
             .Any(grid => grid?.Children[2] is TextBlock textBlock && _compatibleFileTypes.Contains(textBlock.Text));
         var hasKeyword = KeywordsPanel.Children.Count > 0;
-        var hasCheckedPii = PIIPanel.Children
+        var hasCheckedPii = PiiPanel.Children
             .OfType<CheckBox>()
             .Any(checkbox => checkbox.IsChecked == true);
         
