@@ -20,7 +20,7 @@ public partial class MainWindow : Window
 
     private void InputElement_OnKeyDown(object? sender, KeyEventArgs e)
     {
-        if (e.Key != Key.Space && e.Key != Key.Enter)
+        if (e.Key != Key.Enter)
             return;
 
         if (sender is TextBox textBox)
@@ -28,20 +28,16 @@ public partial class MainWindow : Window
             var text = textBox.Text?.TrimEnd();
             if (text is { Length: > 0 })
             {
-                var words = text.Split(' ');
-
-                if (words.Length > 0)
+                // Adds the entire string, spaces included, as one keyword
+                var lastWord = CaseSensitiveKeywords.IsChecked == true ? text : text.ToLower();
+            
+                // Check if the word already exists in the stack panel to avoid dupes
+                if (!IsWordAlreadyAdded(lastWord))
                 {
-                    var lastWord = words[^1].ToLower();
-                    
-                    // Check if the word already exists in the stack panel
-                    if (!IsWordAlreadyAdded(lastWord))
-                    {
-                        AddWordToStackPanel(lastWord);
-                    }
-                    
-                    textBox.Text = string.Join(' ', words[..^1]); // Remove the last word
+                    AddWordToStackPanel(lastWord);
                 }
+
+                textBox.Clear();
             }
         }
         e.Handled = true; // Mark the event as handled
