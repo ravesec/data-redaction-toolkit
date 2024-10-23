@@ -124,23 +124,9 @@
         <!-- Left Buttons -->
         <Grid Grid.Column="0" Grid.Row="2" ColumnDefinitions="*, *" Background="{DynamicResource PrimaryBackgroundColor}">
             <Button Grid.ColumnSpan="2" Content="Select Files" Background="{DynamicResource ButtonFocusColor}" Click="Button_OnClick"/>
-            <!--
-            <Button Grid.Column="1" Content="Set Redaction Level" Name="RedactionLevelButton">
-                <Button.Flyout>
-                    <Flyout Placement="RightEdgeAlignedBottom">
-                        <StackPanel>
-                            <RadioButton GroupName="RedactionLevel" Content="LOW" IsChecked="True" ToolTip.Tip="Redacts matched data only."/>
-                            <RadioButton GroupName="RedactionLevel" Content="MEDIUM" ToolTip.Tip="Redacts sentences where matched data is found."/>
-                            <RadioButton GroupName="RedactionLevel" Content="HIGH" ToolTip.Tip="Redacts entire paragraphs where matched data is found."/>
-                        </StackPanel>
-                    </Flyout>
-                </Button.Flyout>
-            </Button>
-            -->
         </Grid>
         
         <!-- Right Buttons -->
-        <!--  Green #499c54 Greyed out #5a5a5a -->
         <Grid Grid.Column="1" Grid.Row="2" ColumnDefinitions="*" Margin="0,1,0,0" Background="{DynamicResource PrimaryBackgroundColor}">
             <Button Grid.Column="0"
                     Background="{DynamicResource ActiveButtonColor}"
