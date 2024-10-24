@@ -12,11 +12,11 @@ The goal of this software is to allow any user to quickly and easily batch-redac
 | File Type | Supported |
 |-----------|:---------:|
 | .txt      |     ✔️     |
+| .docx     |     ✔️     |
 | .png      |     ❌     |
 | .jpg      |     ❌     |
 | .jpeg     |     ❌     |
 | .pdf      |     ❌     |
-| .docx     |     ❌     |
 | .gif      |     ❌     |
 | .csv      |     ❌     |
 
